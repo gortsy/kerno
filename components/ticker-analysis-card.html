@@ -1,0 +1,59 @@
+<!--
+  Kerno Analytics — Ticker Analysis Result Card (static reference)
+  Live rendering: js/ticker-card.js + js/data.js
+  Styles: css/design-system.css, css/components.css
+-->
+<article class="ticker-card is-visible" aria-label="Analysis for Apple Inc.">
+  <header class="ticker-card__header">
+    <div class="ticker-card__title-block">
+      <h2 class="ticker-card__company">Apple Inc.</h2>
+      <p class="ticker-card__sector">Technology · Filed May 2, 2026</p>
+    </div>
+    <div class="ticker-card__meta">
+      <span class="ticker-card__ticker">AAPL</span>
+      <span class="ticker-card__filing">10-Q</span>
+    </div>
+  </header>
+
+  <section class="ticker-card__take">
+    <span class="ticker-card__take-label">3-second take</span>
+    <p class="ticker-card__take-text">
+      Services growth offsets modest iPhone softness; margins hold steady despite FX headwinds.
+    </p>
+  </section>
+
+  <section class="ticker-card__metrics" aria-label="Key metrics">
+    <article class="metric-card metric-card--up">
+      <span class="metric-card__label">Revenue YoY</span>
+      <span class="metric-card__value">+4.2%</span>
+      <span class="metric-card__delta">▲ vs prior Q</span>
+    </article>
+    <article class="metric-card metric-card--down">
+      <span class="metric-card__label">Gross margin</span>
+      <span class="metric-card__value">46.2%</span>
+      <span class="metric-card__delta">▼ 40 bps</span>
+    </article>
+    <article class="metric-card metric-card--neutral">
+      <span class="metric-card__label">FCF / share</span>
+      <span class="metric-card__value">$1.42</span>
+      <span class="metric-card__delta">— flat</span>
+    </article>
+  </section>
+
+  <section class="ticker-card__signals">
+    <h3 class="ticker-card__signals-title">Key signals</h3>
+    <ul class="ticker-card__signals-list">
+      <li style="--signal-index: 0">Installed base crossed 2.2B active devices, up 6% YoY.</li>
+      <li style="--signal-index: 1">Greater China revenue declined 8%; management cites competitive pricing.</li>
+      <li style="--signal-index: 2">R&D spend rose 11% with explicit AI infrastructure investments.</li>
+      <li style="--signal-index: 3">Buyback authorization increased by $90B; no dividend change.</li>
+    </ul>
+  </section>
+
+  <section class="ticker-card__bottom-line">
+    <span class="ticker-card__bottom-line-label">Bottom line</span>
+    <p class="ticker-card__bottom-line-text">
+      Fundamentals remain intact with a durable ecosystem moat; near-term risk is regional demand, not balance-sheet stress.
+    </p>
+  </section>
+</article>

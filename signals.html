@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI signal scanner — live investment signals with allocation recommendations from Kerno Analytics.">
+  <title>Signal Scanner — Kerno Analytics</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/enterprise.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/signals.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header"></header>
+  <script src="js/header.js" data-page="signals"></script>
+
+  <main id="main" class="site-main site-main--page">
+    <section class="inner-hero" aria-labelledby="signals-title">
+      <div class="inner-hero__inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb__sep">/</span>
+          <span aria-current="page">Signal Scanner</span>
+        </nav>
+        <span class="page-hero__eyebrow">AI investment signals</span>
+        <h1 id="signals-title">Live signal feed</h1>
+        <p class="page-hero__lead">
+          Claude scans your watchlist, reads market context, and acts as a senior
+          portfolio analyst — surfacing actionable signals with capital-allocation
+          recommendations, not just generic takes.
+        </p>
+      </div>
+    </section>
+
+    <div class="page-body">
+
+      <!-- Scanner controls -->
+      <div class="workspace-controls signals-controls">
+        <div class="signals-toolbar">
+
+          <div class="signals-toolbar__watchlist">
+            <p class="signals-label">Watchlist <span class="signals-label__hint">(select tickers to scan)</span></p>
+            <div class="signals-ticker-grid" id="signals-ticker-grid" role="group" aria-label="Ticker watchlist">
+              <!-- injected by signals.js -->
+            </div>
+          </div>
+
+          <div class="signals-toolbar__params">
+            <div class="signals-param">
+              <label class="signals-label" for="capital-input">Available capital</label>
+              <div class="signals-input-wrap">
+                <span class="signals-input-prefix">$</span>
+                <input
+                  type="number"
+                  id="capital-input"
+                  class="signals-input"
+                  value="10000"
+                  min="100"
+                  step="500"
+                  aria-describedby="capital-hint"
+                />
+              </div>
+              <p class="signals-hint" id="capital-hint">Used to calculate dollar allocation per signal</p>
+            </div>
+
+            <div class="signals-param">
+              <p class="signals-label">Auto-scan</p>
+              <label class="signals-toggle" for="auto-scan-toggle">
+                <input type="checkbox" id="auto-scan-toggle" />
+                <span class="signals-toggle__track" aria-hidden="true"></span>
+                <span class="signals-toggle__label">Refresh every 60 s</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="signals-toolbar__action">
+            <button type="button" class="btn btn--primary btn--lg signals-scan-btn" id="scan-btn">
+              ⚡ Scan signals
+            </button>
+          </div>
+        </div>
+
+        <div class="signals-status" id="signals-status" aria-live="polite">
+          <span class="signals-status__dot signals-status__dot--idle" id="status-dot" aria-hidden="true"></span>
+          <span id="status-text">Select tickers and press scan to generate AI signals.</span>
+        </div>
+      </div>
+
+      <!-- Summary bar (hidden until first scan) -->
+      <div class="signals-summary" id="signals-summary" hidden aria-label="Scan summary">
+        <div class="signals-summary__item">
+          <span class="signals-summary__val signals-summary__val--buy" id="sum-buy">0</span>
+          <span class="signals-summary__lbl">Buy signals</span>
+        </div>
+        <div class="signals-summary__item">
+          <span class="signals-summary__val signals-summary__val--sell" id="sum-sell">0</span>
+          <span class="signals-summary__lbl">Sell signals</span>
+        </div>
+        <div class="signals-summary__item">
+          <span class="signals-summary__val" id="sum-hold">0</span>
+          <span class="signals-summary__lbl">Hold</span>
+        </div>
+        <div class="signals-summary__item signals-summary__item--divider">
+          <span class="signals-summary__val signals-summary__val--capital" id="sum-capital">$0</span>
+          <span class="signals-summary__lbl">Capital deployed</span>
+        </div>
+        <div class="signals-summary__item">
+          <span class="signals-summary__val signals-summary__val--remaining" id="sum-remaining">$0</span>
+          <span class="signals-summary__lbl">Remaining</span>
+        </div>
+      </div>
+
+      <!-- Signal card grid -->
+      <div class="signals-grid" id="signals-grid" aria-live="polite" aria-label="Signal results">
+        <div class="signals-empty" id="signals-empty">
+          <span class="signals-empty__icon" aria-hidden="true">⚡</span>
+          <p class="signals-empty__text">Select tickers above and press <strong>Scan signals</strong> to generate AI-powered investment recommendations.</p>
+          <p class="signals-empty__sub">Claude analyses market context, momentum, and fundamentals — then allocates capital like a portfolio manager would.</p>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="signals-disclaimer">
+        Signal Scanner is for informational purposes only and does not constitute financial advice.
+        Always conduct your own research before making investment decisions. Past performance is not
+        indicative of future results.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="js/footer.js"></script>
+
+  <script src="js/data.js"></script>
+  <script src="js/ticker-card.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/signals.js"></script>
+</body>
+</html>

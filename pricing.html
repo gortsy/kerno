@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kerno Analytics pricing — plans for research teams.">
+  <title>Pricing — Kerno Analytics</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pricing.css">
+  <link rel="stylesheet" href="css/enterprise.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header"></header>
+  <script src="js/header.js" data-page="pricing"></script>
+
+  <main id="main" class="site-main site-main--page">
+    <section class="inner-hero">
+      <div class="inner-hero__inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb__sep">/</span>
+          <span aria-current="page">Pricing</span>
+        </nav>
+        <span class="page-hero__eyebrow">Plans</span>
+        <h1>Invest in faster filing intelligence</h1>
+        <p class="page-hero__lead">
+          Select a plan, choose monthly or annual billing, and checkout securely with Stripe.
+        </p>
+      </div>
+    </section>
+
+    <div class="page-body">
+
+    <div class="pricing-header">
+      <div class="billing-toggle" role="group" aria-label="Billing period">
+        <button type="button" class="billing-toggle__btn is-active" data-billing="monthly">Monthly</button>
+        <button type="button" class="billing-toggle__btn" data-billing="annual">
+          Annual <span class="billing-toggle__save">Save 20%</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="plan-grid" class="plan-grid" role="radiogroup" aria-label="Subscription plans"></div>
+
+    <div class="pricing-cta-bar">
+      <div>
+        <p id="pricing-selection-summary" class="pricing-cta-bar__summary">Professional — $149/mo</p>
+        <p id="pricing-selection-detail" class="pricing-cta-bar__detail">Billed monthly · Cancel anytime</p>
+      </div>
+      <a id="pricing-continue" class="btn btn--primary btn--lg" href="checkout.html">Continue to checkout</a>
+    </div>
+
+    <section class="section">
+      <h2>Compare plans</h2>
+      <div class="compare-table-wrap">
+        <table class="compare-table" aria-label="Plan comparison">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th data-compare-col="starter">Starter</th>
+              <th data-compare-col="professional">Professional</th>
+              <th data-compare-col="enterprise">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody id="compare-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>FAQ</h2>
+      <div class="accordion" data-accordion>
+        <div class="accordion__item">
+          <button type="button" class="accordion__trigger" aria-expanded="false">How does Stripe billing work?</button>
+          <div class="accordion__panel">
+            <div class="accordion__panel-inner">
+              <p class="accordion__content">Payments run on Stripe Checkout. Card data never touches Kerno servers. Configure <code>server/.env</code> and your publishable key in <code>js/stripe-checkout.js</code>.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button type="button" class="accordion__trigger" aria-expanded="false">Can I change plans later?</button>
+          <div class="accordion__panel">
+            <div class="accordion__panel-inner">
+              <p class="accordion__content">Yes — manage billing from your Account page after subscribing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="js/footer.js"></script>
+
+  <script src="js/plans.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      var body = document.getElementById("compare-body");
+      if (!body || typeof KERNO_COMPARE_ROWS === "undefined") return;
+      body.innerHTML = KERNO_COMPARE_ROWS.map(function (row) {
+        return "<tr><td>" + row.label + "</td><td data-compare-col=\"starter\">" + row.starter +
+          "</td><td data-compare-col=\"professional\">" + row.professional +
+          "</td><td data-compare-col=\"enterprise\">" + row.enterprise + "</td></tr>";
+      }).join("");
+    })();
+  </script>
+  <script src="js/pricing.js"></script>
+</body>
+</html>

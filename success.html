@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome — Kerno Analytics</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/enterprise.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <header class="site-header" id="site-header"></header>
+  <script src="js/header.js" data-page="success"></script>
+
+  <main class="site-main site-main--page">
+    <section class="inner-hero">
+      <div class="inner-hero__inner">
+      <span class="page-hero__eyebrow">Success</span>
+      <h1 id="success-title">You're all set</h1>
+      <p id="success-message" class="page-hero__lead"></p>
+      <p>
+        <a class="btn btn--primary btn--lg" href="analysis.html">Open analysis workspace</a>
+        <a class="btn btn--ghost btn--lg" href="account.html">Account settings</a>
+      </p>
+      </div>
+    </section>
+    <div class="page-body">
+    <article class="feature-card" style="max-width: 36rem;">
+      <h3>Subscription details</h3>
+      <pre id="success-details" style="margin: 0; font-family: var(--font-mono); font-size: 0.8125rem; white-space: pre-wrap; color: var(--kerno-grey-400);"></pre>
+    </article>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="js/footer.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var title = document.getElementById("success-title");
+      var msg = document.getElementById("success-message");
+      var details = document.getElementById("success-details");
+      var data = null;
+      try { data = JSON.parse(sessionStorage.getItem("kerno_last_checkout")); } catch (_) {}
+      if (params.get("demo") === "1" || (data && data.demo)) {
+        title.textContent = "Demo checkout complete";
+        msg.textContent = "Simulated payment succeeded. Connect Stripe for live billing.";
+      } else if (params.get("session_id")) {
+        title.textContent = "Payment received";
+        msg.textContent = "Stripe confirmed your session. Your plan is reflected in Account.";
+      } else {
+        msg.textContent = "Thank you for subscribing to Kerno Analytics.";
+      }
+      if (details && data) details.textContent = JSON.stringify(data, null, 2);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your Kerno Analytics account and settings.">
+  <title>Account — Kerno Analytics</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/account.css">
+  <link rel="stylesheet" href="css/enterprise.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header"></header>
+  <script src="js/header.js" data-page="account"></script>
+
+  <main id="main" class="site-main site-main--page">
+    <section class="inner-hero">
+      <div class="inner-hero__inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb__sep">/</span>
+          <span aria-current="page">Account</span>
+        </nav>
+        <span class="page-hero__eyebrow">Account</span>
+        <h1>Settings &amp; preferences</h1>
+        <p class="page-hero__lead">
+          Manage your profile, subscription, and notifications.
+          <strong>Dark mode is controlled here only.</strong>
+          Plans are on the <a href="index.html#plans">home page</a>.
+        </p>
+      </div>
+    </section>
+
+    <div class="page-body">
+
+    <div class="account-grid">
+      <section class="settings-panel">
+        <h2>Profile</h2>
+        <p class="settings-panel__desc">Your analyst identity on Kerno.</p>
+        <form id="profile-form">
+          <div class="form-field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" autocomplete="name" placeholder="Alex Morgan">
+          </div>
+          <div class="form-field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="alex@firm.com">
+          </div>
+          <div class="form-field">
+            <label for="company">Firm</label>
+            <input type="text" id="company" name="company" autocomplete="organization" placeholder="Meridian Capital">
+          </div>
+          <button type="submit" class="btn btn--primary">Save profile</button>
+        </form>
+      </section>
+
+      <section class="settings-panel">
+        <h2>Subscription</h2>
+        <p class="settings-panel__desc">Billing via Stripe.</p>
+        <p><span id="account-plan" class="plan-badge">No active plan</span></p>
+        <p id="account-billing" style="font-size: 0.9375rem; color: var(--kerno-grey-400); margin-bottom: var(--space-md);">
+          Choose a plan from the home page to subscribe.
+        </p>
+        <a class="btn btn--ghost" href="index.html#plans">View plans on home</a>
+      </section>
+
+      <section class="settings-panel account-grid__full">
+        <h2>Appearance</h2>
+        <div class="settings-row">
+          <div>
+            <span class="settings-row__label">Dark mode</span>
+            <span class="settings-row__hint">Applies across the entire site until you turn it off</span>
+          </div>
+          <input type="checkbox" class="toggle-switch" id="theme-account" data-theme-toggle-account aria-label="Dark mode">
+        </div>
+      </section>
+
+      <section class="settings-panel account-grid__full">
+        <h2>Notifications</h2>
+        <div class="settings-row">
+          <span class="settings-row__label">Watchlist filings</span>
+          <input type="checkbox" class="toggle-switch" data-notify="watchlist" checked>
+        </div>
+        <div class="settings-row">
+          <span class="settings-row__label">Summary ready alerts</span>
+          <input type="checkbox" class="toggle-switch" data-notify="filings" checked>
+        </div>
+        <div class="settings-row">
+          <span class="settings-row__label">Product updates</span>
+          <input type="checkbox" class="toggle-switch" data-notify="product">
+        </div>
+      </section>
+    </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="js/footer.js"></script>
+
+  <script src="js/plans.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>
