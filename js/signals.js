@@ -152,15 +152,16 @@
       }
 
       const data = await res.json();
-      const raw  = data.text
-        .replace(/```json?/g, "")
-        .replace(/```/g, "")
-        .trim();
-
-      const start   = raw.indexOf("[");
-      const end     = raw.lastIndexOf("]");
-      if (start < 0 || end < 0) throw new Error("No JSON array in response");
-
+      let raw = data.text || "";
+// strip any markdown fences or extra text
+      raw = raw.replace(/```json?/gi, "").replace(/```/g, "").trim();
+// extract just the array
+      const start = raw.indexOf("[");
+      const end   = raw.lastIndexOf("]");
+      if (start < 0 || end < 0) {
+          console.error("Raw Gemini response:", raw);
+          throw new Error("No JSON array in response");
+      }
       const signals = JSON.parse(raw.slice(start, end + 1));
       renderSignals(signals, capital);
       setStatus(`Last scan: ${now} · ${signals.length} ticker${signals.length !== 1 ? "s" : ""} analyzed`, false);
@@ -172,7 +173,7 @@
         <div class="signals-empty" style="grid-column:1/-1">
           <span class="signals-empty__icon" aria-hidden="true">⚠</span>
           <p class="signals-empty__text">Scan failed: ${escapeHtml(err.message)}</p>
-          <p class="signals-empty__sub">Check that the Anthropic API is reachable from this environment.</p>
+          <p class="signals-empty__sub">Check that your Railway server is running and GOOGLE_API_KEY is set.</p>
         </div>`;
     }
 
