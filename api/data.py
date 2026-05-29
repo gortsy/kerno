@@ -131,7 +131,7 @@ def find_best_document(docs: list, index_url: str) -> str:
     for doc in docs:
         name = doc.get("name", "").lower()
         # Skip exhibits, graphics, CSS, JS
-        if any(x in name for x in ["ex", "exhibit", ".gif", ".jpg", ".css", ".js", "R1.", "R2."]):
+        if any(x in name for x in ["ex", "exhibit", ".gif", ".jpg", ".css", ".js"]) or re.match(r"r\d+\.htm", name):
             continue
         if name.endswith(".htm") or name.endswith(".html"):
             candidates.append(doc.get("name", ""))
@@ -157,7 +157,7 @@ def clean_html(html: str) -> str:
     return text.strip()
 
 
-def extract_key_sections(text: str, max_chars: int = 14000) -> str:
+def extract_key_sections(text: str, max_chars: int = 20000) -> str:
     """
     Find and extract the most financially relevant sections of the filing.
     Returns up to max_chars of the most useful content.
@@ -271,7 +271,7 @@ def get_filing_text(filing_url: str, index_url: str = "") -> str:
     else:
         log.warning("No key sections found — using raw text fallback")
         # Fallback: return the first 8000 chars of cleaned text
-        extracted = clean[:8000]
+        extracted = clean[:15000]
 
     return extracted
 
