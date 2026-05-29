@@ -84,72 +84,70 @@ def extract_financials(text: str) -> str:
 
 # ── Prompt ──────────────────────────────────────────────────────────────────
 def build_prompt(company: dict) -> str:
-    raw_text     = company.get("filing_text", "")
-    key_sections = extract_financials(raw_text)
+    filing_text = company.get("filing_text", "").strip()
 
-    if key_sections:
-        text_block = f"""
-The following lines were extracted directly from the {company['form']} filing.
-These contain the actual financial figures — USE THESE NUMBERS EXACTLY as reported.
-Do not round, estimate, or substitute figures from memory.
+    if filing_text and len(filing_text) > 500:
+        context = f"""Here is extracted text from the actual {company['form']} filing dated {company['date']}.
+Use the specific numbers you find here. Where the filing text is incomplete,
+supplement with your knowledge of this company's recent financials.
 
---- FILING EXTRACT START ---
-{key_sections}
---- FILING EXTRACT END ---
-"""
+--- FILING EXTRACT ---
+{filing_text[:12000]}
+--- END EXTRACT ---"""
     else:
-        text_block = """
-No filing text was available. Use your training knowledge for this company's
-most recently reported quarter, and note in three_second_take that figures
-are estimates based on training data.
-"""
+        context = f"""The SEC filing text could not be extracted fully.
+Use your knowledge of {company['name']} ({company['ticker']}) and their most recently
+reported quarter as of {company['date']} to provide accurate figures."""
 
-    return f"""You are a senior equity research analyst reading a real SEC filing.
+    return f"""You are a senior equity research analyst at a top-tier investment bank.
+You write clear, opinionated analysis that investors can actually act on.
 
 Company: {company['name']} (ticker: {company['ticker']})
-Filing:  {company['form']} · {company['date']}
+Filing: {company['form']} dated {company['date']}
 
-{text_block}
+{context}
 
-STRICT RULES:
-1. If filing text was provided above, use ONLY those numbers — do not substitute from memory.
-2. If a figure is not in the extract, write "not disclosed" — never estimate.
-3. Keep every string value under 100 characters.
-4. metric_dir must be exactly: up, down, or neutral — nothing else.
-5. Return ONLY the JSON object below. No markdown, no fences, no text before {{ or after }}.
+Your job:
+- Pull out the most important financial metrics (revenue, net income, margins, EPS, key segments)
+- Give real numbers — never write "not disclosed" if you know the figure from your training
+- Write an opinionated bottom line with a specific bull case and key risk
+- management_tone should reflect how executives actually talked about the quarter
+- risks should be specific to THIS company and quarter, not generic boilerplate
+- Be direct and confident. Investors want your view, not hedged nothing-statements.
+
+Return ONLY this JSON object. No markdown, no fences, no text outside the braces.
 
 {{
-  "three_second_take": "One sentence capturing the most important thing about this quarter",
-  "metric1_label": "most important top-line metric label e.g. Revenue",
-  "metric1_value": "exact value from filing e.g. $44.9B",
-  "metric1_change": "YoY or QoQ change with comparison e.g. +9% vs $41.3B prior year",
+  "three_second_take": "One sharp sentence: what matters most this quarter and what it means for investors",
+  "metric1_label": "Revenue",
+  "metric1_value": "e.g. $90.2B",
+  "metric1_change": "e.g. +12% YoY",
   "metric1_dir": "up",
-  "metric2_label": "second most important metric e.g. Net Income",
-  "metric2_value": "exact value from filing",
-  "metric2_change": "change with comparison",
+  "metric2_label": "Net Income",
+  "metric2_value": "e.g. $26.3B",
+  "metric2_change": "e.g. +28% YoY",
   "metric2_dir": "up",
-  "metric3_label": "third metric e.g. Gross Margin or key segment",
-  "metric3_value": "exact value from filing",
-  "metric3_change": "change with comparison",
-  "metric3_dir": "neutral",
+  "metric3_label": "Operating Margin",
+  "metric3_value": "e.g. 34%",
+  "metric3_change": "e.g. +4pp YoY",
+  "metric3_dir": "up",
   "key_signals": [
-    "Specific finding with exact number from filing",
-    "Specific finding with exact number from filing",
-    "Specific finding with exact number from filing",
-    "Specific finding with exact number from filing"
+    "Signal with a specific number — e.g. Google Cloud grew 28% to $12.3B",
+    "Signal — e.g. YouTube ad revenue hit $8.9B, up 21%",
+    "Signal — e.g. Opex grew only 5% vs 12% revenue growth showing leverage",
+    "Signal — e.g. $70B buyback announced"
   ],
   "management_tone": [
-    "Direct quote or close paraphrase from management language in filing",
-    "Specific forward guidance statement or outlook language from filing"
+    "How management described the quarter with specific language",
+    "Forward guidance or outlook language"
   ],
   "risks": [
-    "Specific risk factor mentioned in this filing — not generic",
-    "Second specific risk factor from this filing"
+    "Specific risk with a number or timeframe",
+    "Second specific risk"
   ],
-  "bottom_line": "Bull case in one sentence with a real number. Key risk in one sentence."
+  "bottom_line": "Bull case: [specific reason with number]. Key risk: [specific concern]."
 }}
 """
-
 
 # ── JSON repair ─────────────────────────────────────────────────────────────
 def repair_json(raw: str) -> dict:
