@@ -245,7 +245,11 @@ async def scan_signals(request: Request, payload: dict):
             ),
         )
         response = model.generate_content(prompt)
-        raw = response.text.strip().replace("```json", "").replace("```", "").strip()
+        import re as _re
+        raw = response.text.strip()
+        raw = _re.sub(r"```json?\s*", "", raw)
+        raw = _re.sub(r"```", "", raw)
+        raw = raw.strip()
         return {"text": raw}
 
     except Exception as e:
