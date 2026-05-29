@@ -5,8 +5,7 @@ import os
 import re
 import json
 import logging
-from google import genai
-from google.genai import types as genai_types
+import google.generative as genai
 from dotenv import load_dotenv
 
 load_dotenv()
