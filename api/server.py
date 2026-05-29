@@ -116,8 +116,8 @@ async def security_headers(request: Request, call_next):
         "object-src 'none';"
     )
     # Remove headers that leak server info
-    h.pop("X-Powered-By",   None)
-    h.pop("Server",          None)
+    if "X-Powered-By" in h: del h["X-Powered-By"]
+    if "Server" in h: del h["Server"]
     return response
 
 # ── Global error handler — never leak internals ───────────────────────────────
