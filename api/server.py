@@ -36,7 +36,7 @@ log = logging.getLogger("kerno.server")
 import google.generativeai as genai
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
-GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "models/gemini-1.5-flash")
+GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "models/gemini-3.5-flash")
 
 if not GOOGLE_API_KEY:
     raise RuntimeError(
