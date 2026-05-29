@@ -168,6 +168,8 @@
       if (window.kernoToast) window.kernoToast("Scan complete", "success");
 
     } catch (err) {
+      console.error("Parse error:", err.message);
+      console.error("Raw test was:", data?.text);
       setStatus("Scan failed — check your connection or API key.", false);
       gridEl.innerHTML = `
         <div class="signals-empty" style="grid-column:1/-1">
