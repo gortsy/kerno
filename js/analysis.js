@@ -32,7 +32,7 @@
 
   async function probeApi() {
     try {
-      const r = await fetch("/api/health", { signal: AbortSignal.timeout(2000) });
+      const r = await fetch("/api/health", { signal: AbortSignal.timeout(8000) });
       apiOnline = r.ok;
     } catch { apiOnline = false; }
   }
