@@ -33,7 +33,8 @@ logging.basicConfig(
 log = logging.getLogger("kerno.server")
 
 # ── Gemini ────────────────────────────────────────────────────────────────────
-import google.generativeai as genai
+from google import genai
+from google.genai import types as genai_types
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "models/gemini-3.5-flash")
@@ -46,7 +47,7 @@ if not GOOGLE_API_KEY:
         "Get a free key at https://aistudio.google.com/app/apikey"
     )
 
-genai.configure(api_key=GOOGLE_API_KEY)
+gemini_client = genai.Client(api_key=GOOGLE_API_KEY) if GOOGLE_API_KEY else None
 
 # ── FastAPI + rate limiter ────────────────────────────────────────────────────
 from fastapi import FastAPI, HTTPException, Query, Request
