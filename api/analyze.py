@@ -13,7 +13,7 @@ log = logging.getLogger("kerno.analyze")
 
 # ── Config ──────────────────────────────────────────────────────────────────
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
-GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "models/gemini-1.5-flash")
+GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "models/gemini-3.5-flash")
 
 if GOOGLE_API_KEY:
         genai.configure(api_key=GOOGLE_API_KEY)
