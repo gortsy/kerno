@@ -5,7 +5,7 @@ import os
 import re
 import json
 import logging
-import google.generative as genai
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
